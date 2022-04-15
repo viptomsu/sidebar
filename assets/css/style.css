@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+	--text-color: black;
+	--font-size: .875rem;
+	--primary: #1890ff;
+	--border-color: #1890ff;
+	--primary-background: #e6f7ff;
+	--box-shadow: 2px 2px 5px rgba(0, 0, 0, .15),
+	5px 5px 10px rgba(0, 0, 0, .1);
+}
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html{
+	font-size: 100%;
+	scroll-behavior: smooth;
+	overflow-y: scroll;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	line-height: 1.6;
+	font-size: var(--font-size);
+}
+
+ul {
+	list-style: none;
+}
+
+.sidebar {
+	--gap: 0.625rem;
+	height: 100vh;
+	padding-top: var(--gap);
+	width: 13rem;
+	box-shadow: var(--box-shadow);
+}
+
+.sidebar__item {
+	margin-top: var(--gap);
+	height: 2.5rem;
+}
+
+/* fake click element */
+.click-element {
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	padding-left: 1.5rem;
+	padding-right: 1rem;
+	width: 100%;
+	height: 100%;
+}
+.click-element > img {
+	height: .875rem;
+}
+.click-element > .sidebar__menuText {
+	margin-left: 0.625rem;
+	position: relative;
+	top: 1px;
+}
+.sidebar__item > input {
+	display: none;
+}
+
+.click-element:hover {
+	border: 1px solid var(--border-color);
+}
+
+/* fake clicked  */
+input:checked + .click-element:not(.submenu) {
+	color: var(--primary);
+	background-color: var(--primary-background);
+	box-shadow: inset -3px 0px 0px var(--primary);
+}
+
+/* submenu */
+.submenu {
+	position: relative;
+	border: none!important;
+}
+.submenu::after {
+	content: "\f107";
+	display: block;
+	font: var(--fa-font-solid);
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	font-weight: 900;
+	position: absolute;
+	right: .75rem;
+}
+.submenu__list {
+	width: 100%;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	display: none;
+	opacity: 0;
+	transition: all 0.3s 1;
+}
+.submenu:hover .sidebar__menuText{
+	color: var(--primary);
+}
+.submenu:hover::after {
+	color: var(--primary);
+}
+
+/* right submenu */
+.submenu.right::after {
+	content: "\f105";
+}
+input:checked + .submenu.right::after {
+	content: "\f104";
+}
+.submenu.right > .submenu__list {
+	left: 100%;
+	top: 0;
+	box-shadow: var(--box-shadow);
+}
+.submenu.right > .submenu__list :first-child {
+	margin-top: 0;
+}
+
+/* fake clicked submenu */
+input:checked + .submenu {
+	color: var(--text-color);
+}
+input:checked + .submenu::after {
+	content: "\f106";
+}
+input:checked + .submenu > .submenu__list {
+	display: block;
+	opacity: 1;
+}
+
+.submenu__item .click-element:hover {
+	border: none;
+	box-shadow: inset -2px 0px 0px var(--primary);
+}
+.submenu__item > .click-element {
+	padding-left: 2.5rem;
+}
+
